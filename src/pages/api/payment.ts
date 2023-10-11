@@ -36,7 +36,9 @@ export default async function handler(
     axios
       .post(webhookEndpoint, {
         mobile: req.body.mobile,
-        tickets: ["www.googel.com"],
+        tickets: [
+          "https://firebasestorage.googleapis.com/v0/b/open-formiz.appspot.com/o/download%20(1).png?alt=media&token=18c0b753-12b6-4fc0-81d8-61b2fcc62527",
+        ],
       })
       .then((webhookResponse) => {
         console.log("Webhook response:", webhookResponse.data);
