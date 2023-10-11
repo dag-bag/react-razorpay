@@ -31,17 +31,20 @@ export default async function handler(
       return res.status(500).json({ message: "Something went wrong" });
     }
 
+    const webhookEndpoint = "http://localhost:3000/api/webhook";
 
-    const webhookEndpoint = '/webhook';
-
-    axios.post(webhookEndpoint, { orderId: response.id })
+    axios
+      .post(webhookEndpoint, {
+        orderId: response.id,
+        mobile: req.body.mobile,
+        tickets: ["www.googel.com"],
+      })
       .then((webhookResponse) => {
-        console.log('Webhook response:', webhookResponse.data);
+        console.log("Webhook response:", webhookResponse.data);
       })
       .catch((error) => {
-        console.error('Error making POST request to the webhook:', error);
+        console.error("Error making POST request to the webhook:", error);
       });
-
 
     res.json({
       id: response.id,
