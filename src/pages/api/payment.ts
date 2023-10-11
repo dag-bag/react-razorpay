@@ -31,7 +31,7 @@ export default async function handler(
       return res.status(500).json({ message: "Something went wrong" });
     }
 
-    const webhookEndpoint = "http://localhost:3000/api/webhook";
+    const webhookEndpoint = "https://react-razorpay-omega.vercel.app/api/webhook";
 
     axios
       .post(webhookEndpoint, {
