@@ -24,7 +24,7 @@ export default function Home() {
         order_id: data.id,
         name: "Sample Transaction",
         description: "Test Transaction",
-        handler: function (response) {
+        handler: function (response: any) {
           // Success callback
           alert("Payment successful!");
         },
@@ -43,6 +43,7 @@ export default function Home() {
 
   return (
     <>
+      {/* @ts-ignore */}
       <Script
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="lazyOnload"
