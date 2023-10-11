@@ -2,6 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import shortid from "shortid";
 import Razorpay from "razorpay";
 import axios from "axios";
+import { writeToGoogleSheet } from "@/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -33,19 +34,16 @@ export default async function handler(
 
     const webhookEndpoint = `${process.env.NEXT_PUBLIC_URL}/api/webhook`;
 
-    axios
-      .post(webhookEndpoint, {
-        orderId: response.id,
+    try {
+      await writeToGoogleSheet({
         mobile: req.body.mobile,
-        tickets: ["www.googel.com"],
-      })
-      .then((webhookResponse) => {
-        console.log("Webhook response:", webhookResponse.data);
-      })
-      .catch((error) => {
-        throw new Error("Something went wrong");
-        console.error("Error making POST request to the webhook:", error);
+        tickets: ["www.amazone.com"],
       });
+    } catch (error) {
+      res
+        .status(500)
+        .json({ message: "Something went wrong in Google Sheets" });
+    }
 
     res.json({
       id: response.id,
