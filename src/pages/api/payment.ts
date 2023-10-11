@@ -36,7 +36,7 @@ export default async function handler(
     axios
       .post(webhookEndpoint, {
         mobile: req.body.mobile,
-        tickets: ["www.google.com"],
+        tickets: ["https://shorturl.at/chwy2"],
       })
       .then((webhookResponse) => {
         console.log("Webhook response:", webhookResponse.data);
