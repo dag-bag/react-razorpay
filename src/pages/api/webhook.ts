@@ -13,10 +13,10 @@ export default async function handler(
       // Parse the JSON payload received from the webhook
       const data = req.body;
       try {
-        await writeToGoogleSheet({
-          mobile: req.body.mobile,
-          tickets: req.body.tickets,
-        });
+        // await writeToGoogleSheet({
+        //   mobile: req.body.mobile,
+        //   tickets: req.body.tickets,
+        // });
       } catch (error) {
         throw new Error("Something went wrong");
       }

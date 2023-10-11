@@ -2,7 +2,6 @@ import { NextApiRequest, NextApiResponse } from "next";
 import shortid from "shortid";
 import Razorpay from "razorpay";
 import axios from "axios";
-import { writeToGoogleSheet } from "@/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -32,18 +31,20 @@ export default async function handler(
       return res.status(500).json({ message: "Something went wrong" });
     }
 
-    const webhookEndpoint = `${process.env.NEXT_PUBLIC_URL}/api/webhook`;
+    const webhookEndpoint = `https://connect.pabbly.com/workflow/sendwebhookdata/IjU3NjUwNTZmMDYzZjA0MzM1MjZkNTUzNDUxM2Ei_pc`;
 
-    try {
-      await writeToGoogleSheet({
+    axios
+      .post(webhookEndpoint, {
         mobile: req.body.mobile,
-        tickets: ["www.amazone.com"],
+        tickets: ["www.googel.com"],
+      })
+      .then((webhookResponse) => {
+        console.log("Webhook response:", webhookResponse.data);
+      })
+      .catch((error) => {
+        throw new Error("Something went wrong");
+        console.error("Error making POST request to the webhook:", error);
       });
-    } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Something went wrong in Google Sheets" });
-    }
 
     res.json({
       id: response.id,
