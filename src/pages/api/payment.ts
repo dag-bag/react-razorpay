@@ -31,6 +31,18 @@ export default async function handler(
       return res.status(500).json({ message: "Something went wrong" });
     }
 
+
+    const webhookEndpoint = '/webhook';
+
+    axios.post(webhookEndpoint, { orderId: response.id })
+      .then((webhookResponse) => {
+        console.log('Webhook response:', webhookResponse.data);
+      })
+      .catch((error) => {
+        console.error('Error making POST request to the webhook:', error);
+      });
+
+
     res.json({
       id: response.id,
       currency: response.currency,
