@@ -15,7 +15,6 @@ export default function Home() {
     const { data } = await axios.post("/api/payment", query);
     return data;
   };
-
   const handlePayment = () => {
     getDataFromServer().then((data) => {
       const options = {
@@ -25,7 +24,18 @@ export default function Home() {
         order_id: data.id,
         name: "Sample Transaction",
         description: "Test Transaction",
+        handler: function (response) {
+          // Success callback
+          alert("Payment successful!");
+        },
+        modal: {
+          ondismiss: function () {
+            // Razorpay popup closed callback
+            window.location.href = "http://wa.link/dsi49h";
+          },
+        },
       };
+
       const razorpay = new window.Razorpay(options);
       razorpay.open();
     });
