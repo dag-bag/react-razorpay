@@ -9,30 +9,42 @@ const auth = new google.auth.GoogleAuth({
 const spreadsheetId = "1GH-yGlVxjr61kQ__10GL5QRRfbwEheDgNBO0dxQx4y0"; // Replace with the actual ID from your Google Sheets document link
 const range = "Sheet1"; // Replace with the name of the sheet you want to write to.
 
-async function writeToGoogleSheet(dataToStore: any) {
-  const values = [
-    [
-      dataToStore.id,
-      dataToStore.entity,
-      dataToStore.amount,
-      dataToStore.amount_paid,
-      dataToStore.amount_due,
-      dataToStore.currency,
-      dataToStore.receipt,
-      dataToStore.offer_id,
-      dataToStore.status,
-      dataToStore.attempts,
-      dataToStore.notes.join(","), // Convert notes array to a comma-separated string
-      dataToStore.created_at,
-      dataToStore.mobile,
-    ],
-  ];
-
+async function findLastRowWithData() {
   try {
-    const sheetsApi = await sheets.spreadsheets.values.append({
+    const response = await sheets.spreadsheets.values.get({
       auth: await auth.getClient(),
       spreadsheetId,
-      range,
+      range: range,
+    });
+
+    const numRows = response.data.values ? response.data.values.length : 0;
+    return numRows; // Return the last row with data
+  } catch (error) {
+    console.error("Error:", error);
+    return -1; // Return -1 to indicate an error
+  }
+}
+
+async function writeToGoogleSheet(dataToStore: any) {
+  // Ensure that the values are ordered correctly to match the headers in your Google Sheet.
+  const values = [[dataToStore.mobile, dataToStore.tickets.join(",")]];
+
+  // Find the last row with data dynamically
+  const lastRowWithData = await findLastRowWithData();
+
+  if (lastRowWithData === -1) {
+    console.error("Error finding the last row with data.");
+    return;
+  }
+
+  // Calculate the range to append data immediately below the last row with data
+  const updatedRange = `Sheet1!A${lastRowWithData + 1}`;
+
+  try {
+    const sheetsApi = await sheets.spreadsheets.values.update({
+      auth: await auth.getClient(),
+      spreadsheetId,
+      range: updatedRange,
       valueInputOption: "RAW",
       resource: {
         values,
@@ -62,6 +74,7 @@ const dataToStore = {
   mobile: 8766203976,
 };
 
+// Uncomment the line below to execute the function.
 // writeToGoogleSheet(dataToStore);
 
 export { writeToGoogleSheet };
