@@ -43,6 +43,7 @@ export default async function handler(
         console.log("Webhook response:", webhookResponse.data);
       })
       .catch((error) => {
+        throw new Error("Something went wrong");
         console.error("Error making POST request to the webhook:", error);
       });
 
