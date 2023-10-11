@@ -1,7 +1,6 @@
 import Script from "next/script";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { writeToGoogleSheet } from "@/utils";
 
 declare global {
   interface Window {
@@ -38,16 +37,24 @@ export default function Home() {
         src="https://checkout.razorpay.com/v1/checkout.js"
         strategy="lazyOnload"
       />
-      <div className="items-center lg:p-20 p-5 justify-center">
-        <div className="border h-full flex lg:flex-row flex-col">
-          <div className="p-10 prose prose-sm max-w-none w-full lg:w-1/2 h-full flex flex-col">
-            <button
-              className="bg-blue-500 mt-5 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-              onClick={handlePayment}
-            >
-              Buy Now
-            </button>
-          </div>
+
+      <div className="w-screen h-screen flex items-center justify-center bg-gray-200">
+        <div className="bg-white w-[300px] p-2 rounded-xl">
+          <img src="logo.png" className="w-[100px] mx-auto" />
+          <h2 className="text-xl mb-3 font-medium text-center">
+            Buy Tickets for Mela
+          </h2>
+          <p className=" text-center text-sm mb-2 px-2 font-medium text-gray-500">
+            Rotary Club Bareilly South welcomes you and your family to the
+            Dusshera Mela. Use our secure gateway to buy your tickets and have a
+            great time with your <br /> family and friends
+          </p>
+          <button
+            onClick={handlePayment}
+            className="w-full px-10 bg-blue-500 py-2.5 text-white rounded-xl font-medium"
+          >
+            Buy Tickets
+          </button>
         </div>
       </div>
     </>
