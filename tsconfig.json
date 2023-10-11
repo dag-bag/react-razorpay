@@ -29,7 +29,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/utils/index.js"  ],
   "exclude": [
     "node_modules",
     "functions"

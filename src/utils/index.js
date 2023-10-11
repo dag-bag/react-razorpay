@@ -11,7 +11,8 @@ const range = "Sheet1"; // Replace with the name of the sheet you want to write 
 
 async function findLastRowWithData() {
   try {
-    const response = await sheets.spreadsheets.values.get({
+    //@ts-ignore
+    const response = await sheets?.spreadsheets.values.get({
       auth: await auth.getClient(),
       spreadsheetId,
       range: range,
@@ -25,7 +26,7 @@ async function findLastRowWithData() {
   }
 }
 
-async function writeToGoogleSheet(dataToStore: any) {
+async function writeToGoogleSheet(dataToStore) {
   // Ensure that the values are ordered correctly to match the headers in your Google Sheet.
   const values = [[dataToStore.mobile, dataToStore.tickets.join(",")]];
 
@@ -42,6 +43,7 @@ async function writeToGoogleSheet(dataToStore: any) {
 
   try {
     const sheetsApi = await sheets.spreadsheets.values.update({
+      // @ts-ignore
       auth: await auth.getClient(),
       spreadsheetId,
       range: updatedRange,
