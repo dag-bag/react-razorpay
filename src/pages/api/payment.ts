@@ -30,15 +30,7 @@ export default async function handler(
     if (!response) {
       return res.status(500).json({ message: "Something went wrong" });
     }
-    const res = await fetch("/api/test", {
-      mobile: req.body.mobile,
-      tickets: [
-        "www.google.com",
-        "www.google.com",
-        "www.google.com",
-        "www.google.com",
-      ],
-    });
+
     res.json({
       id: response.id,
       currency: response.currency,
