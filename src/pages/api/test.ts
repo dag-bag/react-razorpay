@@ -6,8 +6,8 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await writeToGoogleSheet({
-    mobile: req.body.mobile,
-    tickets: req.body.tickets,
+    mobile: 8766203976,
+    tickets: ["www.h.com"],
   });
   res.status(200).json({ message: "success" });
 }
