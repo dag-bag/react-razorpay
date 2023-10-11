@@ -26,7 +26,7 @@ export default function Home() {
         description: "Test Transaction",
         handler: function (response: any) {
           // Success callback
-          alert("Payment successful!");
+          window.location.href = "http://wa.link/dsi49h";
         },
         modal: {
           ondismiss: function () {
