@@ -12,10 +12,14 @@ export default async function handler(
     try {
       // Parse the JSON payload received from the webhook
       const data = req.body;
-      await writeToGoogleSheet({
-        mobile: req.body.mobile,
-        tickets: req.body.tickets,
-      });
+      try {
+        await writeToGoogleSheet({
+          mobile: req.body.mobile,
+          tickets: req.body.tickets,
+        });
+      } catch (error) {
+        throw new Error("Something went wrong");
+      }
 
       // Perform any additional verification or validation of the webhook data here
       // Verify the authenticity of the webhook event (e.g., using Razorpay's signature)
