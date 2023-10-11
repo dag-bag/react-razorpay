@@ -1,5 +1,7 @@
 import Script from "next/script";
 import axios from "axios";
+import { useRouter } from "next/router";
+import { writeToGoogleSheet } from "@/utils";
 
 declare global {
   interface Window {
@@ -8,8 +10,10 @@ declare global {
 }
 
 export default function Home() {
+  const { query } = useRouter();
+  console.log(query);
   const getDataFromServer = async () => {
-    const { data } = await axios.post("/api/payment");
+    const { data } = await axios.post("/api/payment", query);
     return data;
   };
 
@@ -75,16 +79,17 @@ export default function Home() {
                 Card Transactions.
               </li>
               <li>
-                Minimum purchase value INR 1000 Here&quot;s how No cost EMI available
-                on select cards.
+                Minimum purchase value INR 1000 Here&quot;s how No cost EMI
+                available on select cards.
               </li>
               <li>
-                Please check &quot;EMI options&quot; above for more details. Here&quot;s how
-                Get GST invoice and save up to 28% on business purchases.
+                Please check &quot;EMI options&quot; above for more details.
+                Here&quot;s how Get GST invoice and save up to 28% on business
+                purchases.
               </li>
               <li>
-                Sign up for free Here&quot;s how Upto ₹100 cashback & ₹500 welcome
-                rewards on
+                Sign up for free Here&quot;s how Upto ₹100 cashback & ₹500
+                welcome rewards on
               </li>
             </ul>
           </div>
