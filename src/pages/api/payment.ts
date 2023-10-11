@@ -36,16 +36,13 @@ export default async function handler(
     axios
       .post(webhookEndpoint, {
         mobile: req.body.mobile,
-        tickets: [
-          "https://firebasestorage.googleapis.com/v0/b/open-formiz.appspot.com/o/download%20(1).png?alt=media&token=18c0b753-12b6-4fc0-81d8-61b2fcc62527",
-        ],
+        tickets: ["www.google.com"],
       })
       .then((webhookResponse) => {
         console.log("Webhook response:", webhookResponse.data);
       })
       .catch((error) => {
         throw new Error("Something went wrong");
-        console.error("Error making POST request to the webhook:", error);
       });
 
     res.json({
